@@ -1,6 +1,6 @@
 $ lspci | grep -i nvidia
-01:00.0 VGA compatible controller: NVIDIA Corporation GM204 [GeForce GTX 980] (rev a1)
-01:00.1 Audio device: NVIDIA Corporation GM204 High Definition Audio Controller (rev a1)
+01:00.0 VGA compatible controller: NVIDIA Corporation GP107 [GeForce GTX 1050] (rev a1)
+01:00.1 Audio device: NVIDIA Corporation GP107GL High Definition Audio Controller (rev a1)
 
 $ sudo apt install -y mesa-utils
 $ glxgears
@@ -33,3 +33,41 @@ blacklist nouveau
 options nouveau modeset=0
 
    61  sudo update-initramfs -u
+
+   80  sudo add-apt-repository ppa:graphics-drivers/ppa
+   81  sudo apt update
+   86  ubuntu-drivers devices
+
+$ ubuntu-drivers devices
+== /sys/devices/pci0000:00/0000:00:01.0/0000:01:00.0 ==
+modalias : pci:v000010DEd00001C81sv00001462sd00008C97bc03sc00i00
+vendor   : NVIDIA Corporation
+model    : GP107 [GeForce GTX 1050]
+driver   : nvidia-driver-415 - third-party free
+driver   : nvidia-driver-440 - third-party free recommended
+driver   : nvidia-driver-430 - third-party free
+driver   : nvidia-driver-435 - third-party free
+driver   : nvidia-driver-390 - third-party free
+driver   : nvidia-driver-410 - third-party free
+driver   : xserver-xorg-video-nouveau - distro free builtin
+   91  sudo apt install nvidia-driver-440
+$ nvidia-smi 
+Thu Nov  7 02:54:15 2019       
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 440.26       Driver Version: 440.26       CUDA Version: 10.2     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|===============================+======================+======================|
+|   0  GeForce GTX 1050    Off  | 00000000:01:00.0  On |                  N/A |
+| 41%   35C    P8    N/A /  75W |    194MiB /  1992MiB |      0%      Default |
++-------------------------------+----------------------+----------------------+
+                                                                               
++-----------------------------------------------------------------------------+
+| Processes:                                                       GPU Memory |
+|  GPU       PID   Type   Process name                             Usage      |
+|=============================================================================|
+|    0      1044      G   /usr/lib/xorg/Xorg                           104MiB |
+|    0      1219      G   /usr/bin/gnome-shell                          87MiB |
++-----------------------------------------------------------------------------+
+
