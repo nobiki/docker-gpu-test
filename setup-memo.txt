@@ -26,3 +26,10 @@ $ sudo reboot
    46  nvidia-smi
    54  sudo ubuntu-drivers devices
    55  sudo ubuntu-drivers autoinstall
+
+   58  lsmod | grep -i nouveau
+   60  sudo vim /etc/modprobe.d/blacklist-nouveau.conf
+blacklist nouveau
+options nouveau modeset=0
+
+   61  sudo update-initramfs -u
