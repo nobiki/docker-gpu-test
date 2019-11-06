@@ -61,3 +61,8 @@ Thu Nov  7 02:54:15 2019
   118  sudo apt search nvidia-container-toolkit
   119  sudo apt install -y nvidia-container-toolkit
 	reboot
+
+## コンテナでベンチマーク
+xhost + local:root
+docker run -it --rm --gpus all -e DISPLAY=:0 -v /tmp/.X11-unix/:/tmp/.X11-unix docker-gpu-test:latest nvidia-smi
+docker run -it --rm --gpus all -e DISPLAY=:0 -v /tmp/.X11-unix/:/tmp/.X11-unix docker-gpu-test:latest glmark2
