@@ -6,27 +6,7 @@ $ sudo apt install -y mesa-utils
 $ glxgears
 $ glxinfo
 
-$ sudo sh -c "echo 'deb http://httpredir.debian.org/debian/ buster main contrib non-free' >> /etc/apt/sources.list"
-
-$ sudo apt update
-$ export DEBIAN_FRONTEND=noninteractive
-$ sudo apt install -y nvidia-driver
-$ sudo reboot
-   30  distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
-   31  curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
-   32  curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
-   33  sudo apt update
-   34  sudo apt install nvidia-container-toolkit
-   35  sudo reboot
-   39  id
-   40  sudo usermod -aG docker nobiki
-   41  sudo reboot
-   43  docker ps
-   45  docker run --gpus all --rm nvidia/cuda nvidia-smi
-   46  nvidia-smi
-   54  sudo ubuntu-drivers devices
-   55  sudo ubuntu-drivers autoinstall
-
+## ヌーボーオフ
    58  lsmod | grep -i nouveau
    60  sudo vim /etc/modprobe.d/blacklist-nouveau.conf
 blacklist nouveau
@@ -34,6 +14,7 @@ options nouveau modeset=0
 
    61  sudo update-initramfs -u
 
+## ドライバを入れる
    80  sudo add-apt-repository ppa:graphics-drivers/ppa
    81  sudo apt update
    86  ubuntu-drivers devices
@@ -51,6 +32,8 @@ driver   : nvidia-driver-390 - third-party free
 driver   : nvidia-driver-410 - third-party free
 driver   : xserver-xorg-video-nouveau - distro free builtin
    91  sudo apt install nvidia-driver-440
+	reboot
+
 $ nvidia-smi 
 Thu Nov  7 02:54:15 2019       
 +-----------------------------------------------------------------------------+
@@ -71,3 +54,10 @@ Thu Nov  7 02:54:15 2019
 |    0      1219      G   /usr/bin/gnome-shell                          87MiB |
 +-----------------------------------------------------------------------------+
 
+## コンテナで使うための準備
+114  curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
+  116  curl -s -L https://nvidia.github.io/nvidia-docker/$(. /etc/os-release;echo $ID$VERSION_ID)/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+  117  sudo apt update
+  118  sudo apt search nvidia-container-toolkit
+  119  sudo apt install -y nvidia-container-toolkit
+	reboot
