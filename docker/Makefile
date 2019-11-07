@@ -13,6 +13,9 @@ xhost-setup:
 test-smi: ## docker-gpu-test:latest nvidia-smi
 	docker run --rm --gpus all docker-gpu-test:latest nvidia-smi
 
+test-glmark: ## docker-gpu-test:latest glmark2
+	docker run --rm --gpus all -e DISPLAY=:0 -v /tmp/.X11-unix/:/tmp/.X11-unix docker-gpu-test:latest glmark2
+
 test-bash: ## docker-gpu-test:latest bash
 	docker run -it --rm --gpus all -e DISPLAY=:0 -v /tmp/.X11-unix/:/tmp/.X11-unix docker-gpu-test:latest bash
 
